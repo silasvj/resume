@@ -9,6 +9,7 @@
   <meta property="og:description" content="8+ anos em Fintech, HealthTech e SaaS. Projeto experiências, valido com usuários e entrego no código.">
   <meta property="og:type" content="profile">
   <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230C0C0B'/%3E%3Ctext x='16' y='21' text-anchor='middle' fill='%23F8F7F4' font-family='JetBrains Mono,monospace' font-size='16' font-weight='500'%3ESV%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -78,42 +79,39 @@
     .lang-toggle {
       display: inline-flex;
       align-items: center;
-      background: var(--gray-100);
-      border-radius: 5px;
-      padding: 2px;
-      font-family: var(--mono);
-      font-size: 10px;
-      border: 1px solid var(--gray-300);
+      gap: 0;
     }
 
     .lang-toggle button {
-      background: none;
-      border: none;
       cursor: pointer;
-      padding: 6px 10px;
-      border-radius: 4px;
+      padding: 7px 14px;
+      border-radius: 6px;
       font-family: var(--mono);
-      font-size: 10px;
+      font-size: 12px;
       font-weight: 500;
       color: var(--gray-500);
+      background: var(--white);
+      border: 1px solid var(--gray-300);
       transition: all 0.15s;
-      min-height: 30px;
+    }
+
+    .lang-toggle button:first-child {
+      border-radius: 6px 0 0 6px;
+      border-right: none;
+    }
+
+    .lang-toggle button:last-child {
+      border-radius: 0 6px 6px 0;
     }
 
     .lang-toggle button.active {
-      background: var(--white);
-      color: var(--black);
-      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+      background: var(--accent-light);
+      color: var(--accent);
     }
 
     .lang-toggle button:not(.active):hover {
+      background: var(--gray-100);
       color: var(--gray-700);
-    }
-
-    .lang-toggle .sep {
-      color: var(--gray-300);
-      font-size: 10px;
-      padding: 0 1px;
     }
 
     .btn {
@@ -127,14 +125,14 @@
       font-family: var(--sans);
       cursor: pointer;
       transition: all 0.15s ease;
-      border: none;
+      border: 1px solid transparent;
       text-decoration: none;
     }
 
     .btn-ghost {
       background: transparent;
       color: var(--gray-700);
-      border: 1px solid var(--gray-300);
+      border-color: var(--gray-300);
     }
     .btn-ghost:hover { background: var(--gray-100); border-color: var(--gray-500); }
 
@@ -161,7 +159,7 @@
       height: calc(100vh - 49px);
       overflow-y: auto;
       overscroll-behavior: contain;
-      padding: 40px 28px;
+      padding: 40px 28px 40px 0;
       border-right: 1px solid var(--gray-100);
       background: var(--white);
     }
@@ -320,7 +318,7 @@
 
     /* ── MAIN CONTENT ── */
     .main {
-      padding: 48px 56px;
+      padding: 48px 0 48px 56px;
     }
 
     /* ── HERO ── */
@@ -612,11 +610,14 @@
 
     /* ── FOOTER ── */
     footer {
-      padding: 24px 56px;
+      padding: 24px 32px;
       border-top: 1px solid var(--gray-100);
       font-family: var(--mono);
       font-size: 10px;
       color: var(--gray-500);
+    }
+
+    footer .container {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -654,20 +655,61 @@
         height: auto;
         border-right: none;
         border-bottom: 1px solid var(--gray-100);
-        padding: 24px 28px;
+        padding: 14px 20px;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
+        gap: 10px;
         align-items: start;
       }
       .avatar, .avail-badge { display: none; }
-      .sidebar-name { font-size: 20px; }
-      .main { padding: 28px 32px; }
-      .hero-headline { font-size: 26px; }
-      .metrics { break-inside: avoid; }
-      .exp-card { break-inside: avoid; }
+      .sidebar-name { font-size: 16px; }
+      .sidebar-title, .sidebar-location { font-size: 10px; }
+      .sidebar-section { margin-bottom: 14px; }
+      .sidebar-section-label { font-size: 9px; margin-bottom: 6px; }
+      .contact-list { gap: 3px; }
+      .contact-list a { font-size: 10px; }
+      .skill-group { margin-bottom: 6px; }
+      .skill-group-name { font-size: 10px; margin-bottom: 4px; }
+      .tag { font-size: 8px; padding: 1px 4px; }
+      .lang-item { font-size: 10px; margin-bottom: 2px; }
+      .lang-level { font-size: 9px; }
+      .main { padding: 14px 24px; }
+      .hero { margin-bottom: 16px; }
+      .hero-eyebrow { font-size: 10px; margin-bottom: 6px; }
+      .hero-headline { font-size: 20px; margin-bottom: 8px; }
+      .hero-bio { font-size: 12px; margin-bottom: 14px; }
+      .metrics { margin-bottom: 16px; break-inside: avoid; }
+      .metric-item { padding: 10px 14px; }
+      .metric-value { font-size: 20px; }
+      .metric-label { font-size: 10px; }
+      .section { margin-bottom: 16px; }
+      .section-header { margin-bottom: 10px; }
+      .section-title { font-size: 10px; }
+      .exp-card { padding: 8px 0; break-inside: avoid; }
+      .exp-role { font-size: 13px; }
+      .exp-period { font-size: 9px; padding-top: 1px; }
+      .exp-company { font-size: 11px; margin-bottom: 6px; }
+      .exp-bullets { gap: 2px; margin-bottom: 6px; }
+      .exp-bullets li { font-size: 11px; }
+      .exp-highlight { padding: 6px 10px; margin-top: 6px; }
+      .exp-highlight-label { font-size: 9px; }
+      .exp-highlight p { font-size: 11px; }
+      .exp-results { margin-top: 6px; gap: 4px; }
+      .result-pill { font-size: 9px; padding: 2px 6px; }
+      .edu-item { padding: 6px 0; }
+      .edu-title { font-size: 12px; }
+      .edu-inst, .edu-year { font-size: 10px; }
+      .edu-year { min-width: 60px; }
+      .cert-grid { gap: 4px; }
+      .cert-item { padding: 6px 10px; }
+      .cert-name { font-size: 11px; }
+      .cert-org { font-size: 9px; }
+      .talk-item { padding: 6px 0; gap: 10px; }
+      .talk-title { font-size: 12px; }
+      .talk-sub { font-size: 10px; }
+      .talk-event { font-size: 10px; padding: 2px 6px; }
       footer { display: none; }
-      @page { margin: 0.5in; size: A4; }
+      @page { margin: 0; size: A4; }
     }
 
     /* ── FOCUS VISIBLE ── */
@@ -713,7 +755,8 @@
       .metrics { grid-template-columns: repeat(2, 1fr); }
       .cert-grid { grid-template-columns: 1fr; }
       .actions-bar { padding: 12px 20px; }
-      footer { padding: 20px; flex-direction: column; gap: 4px; text-align: center; }
+      footer { padding: 20px; }
+      footer .container { flex-direction: column; gap: 4px; text-align: center; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -731,12 +774,10 @@
     <span class="site-label">silas.vasques/cv</span>
     <div class="lang-toggle" role="group" aria-label="Selecionar idioma">
       <button class="active" onclick="setLang('pt')" aria-pressed="true">PT</button>
-      <span class="sep">|</span>
       <button onclick="setLang('en')" aria-pressed="false">EN</button>
     </div>
     <button class="btn btn-ghost" onclick="shareCV()" aria-label="Compartilhar currículo">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-      <span class="lang-pt">Compartilhar</span><span class="lang-en">Share</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
     </button>
     <button class="btn btn-primary" onclick="downloadPDF()" aria-label="Baixar currículo em PDF">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -906,6 +947,10 @@
           <span class="exp-period">01/2026 — 04/2026</span>
         </div>
         <p class="exp-company">YampaFin <span class="sector">· Fintech · SaaS</span></p>
+        <p style="font-size:13px;color:var(--gray-700);line-height:1.5;margin-bottom:12px">
+          <span class="lang-pt">Software financeiro focado em gestão empresarial, fluxo de caixa e conciliação bancária para PMEs.</span>
+          <span class="lang-en">Financial software focused on business management, cash flow and bank reconciliation for SMBs.</span>
+        </p>
         <ul class="exp-bullets">
           <li><span class="lang-pt">Implementei interfaces diretamente em TypeScript, React e Tailwind, eliminando etapas de revisão visual e reduzindo o atrito no handoff</span><span class="lang-en">Implemented interfaces directly in TypeScript, React and Tailwind, eliminating visual review stages and reducing handoff friction</span></li>
           <li><span class="lang-pt">Orquestrei agentes de IA (Claude Code, Lovable) para entrega de código pronto para produção</span><span class="lang-en">Orchestrated AI agents (Claude Code, Lovable) for production-ready code delivery</span></li>
@@ -924,9 +969,13 @@
           <span class="exp-period">06/2023 — 12/2025</span>
         </div>
         <p class="exp-company">Yampa <span class="sector">· Fintech · SaaS</span></p>
+        <p style="font-size:13px;color:var(--gray-700);line-height:1.5;margin-bottom:12px">
+          <span class="lang-pt">Plataforma de gestão financeira para PMEs brasileiras, com foco em inteligência artificial integrada.</span>
+          <span class="lang-en">Financial management platform for Brazilian SMBs, with a focus on integrated artificial intelligence.</span>
+        </p>
         <ul class="exp-bullets">
           <li><span class="lang-pt">Concebi e projetei Agentes de IA integrados à plataforma: assistente operacional e consultor financeiro analítico</span><span class="lang-en">Designed and built AI Agents integrated into the platform: operational assistant and analytical financial consultant</span></li>
-          <li><span class="lang-pt">Liderei a migração completa do sistema legado para arquitetura Mobile First com acessibilidade WCAG</span><span class="lang-en">Led the complete legacy system migration to Mobile First architecture with WCAG accessibility</span></li>
+          <li><span class="lang-pt">Atuei na migração do sistema legado para arquitetura Mobile First com acessibilidade WCAG</span><span class="lang-en">Worked on the legacy system migration to Mobile First architecture with WCAG accessibility</span></li>
           <li><span class="lang-pt">Geri e evoluí o Design System no Figma com conformidade Tailwind</span><span class="lang-en">Managed and evolved the Design System in Figma with Tailwind compliance</span></li>
         </ul>
         <div class="exp-highlight">
@@ -947,14 +996,21 @@
           <span class="exp-period">06/2022 — 04/2023</span>
         </div>
         <p class="exp-company">Meetz <span class="sector">· MarTech · SaaS</span></p>
+        <p style="font-size:13px;color:var(--gray-700);line-height:1.5;margin-bottom:12px">
+          <span class="lang-pt">Plataforma unificada de prospecção ativa e qualificação de leads B2B, que consolidou Pipefy, Woodpecker, Apollo, Gmail e Pipedrive em uma só ferramenta.</span>
+          <span class="lang-en">Unified B2B active prospecting and lead qualification platform, consolidating Pipefy, Woodpecker, Apollo, Gmail and Pipedrive into a single tool.</span>
+        </p>
         <ul class="exp-bullets">
-          <li><span class="lang-pt">Conduzi Continuous Discovery e entrevistas qualitativas com usuários B2B</span><span class="lang-en">Conducted Continuous Discovery and qualitative interviews with B2B users</span></li>
-          <li><span class="lang-pt">Defini MVP, mapeei User Flows e estruturei Arquitetura de Informação</span><span class="lang-en">Defined MVP, mapped User Flows and structured Information Architecture</span></li>
-          <li><span class="lang-pt">Prototipação em Figma e moderação de testes de usabilidade</span><span class="lang-en">Prototyping in Figma and moderated usability testing</span></li>
+          <li><span class="lang-pt">Conduzi Continuous Discovery, entrevistas qualitativas e pesquisa estratégica para definir o MVP</span><span class="lang-en">Conducted Continuous Discovery, qualitative interviews and strategic research to define the MVP</span></li>
+          <li><span class="lang-pt">Mapeei User Flows, Arquitetura de Informação e prototipação de alta fidelidade no Figma</span><span class="lang-en">Mapped User Flows, Information Architecture and high-fidelity prototyping in Figma</span></li>
+          <li><span class="lang-pt">Moderei testes de usabilidade e estabeleci feedback contínuo com engenharia</span><span class="lang-en">Moderated usability tests and established continuous feedback with engineering</span></li>
         </ul>
+        <div class="exp-highlight">
+          <p class="exp-highlight-label"><span class="lang-pt">Impacto</span><span class="lang-en">Impact</span></p>
+          <p><span class="lang-pt">Eliminação do context switching e do "resíduo de atenção". A centralização reduziu a carga cognitiva, permitindo que os usuários mantivessem o estado de flow por mais tempo.</span><span class="lang-en">Eliminated context switching and "attention residue". Centralization reduced cognitive load, allowing users to maintain flow state for longer periods.</span></p>
+        </div>
         <div class="exp-results">
-          <span class="result-pill"><span class="lang-pt">MVP entregue</span><span class="lang-en">MVP delivered</span></span>
-          <span class="result-pill"><span class="lang-pt">Redução de custos operacionais</span><span class="lang-en">Operational cost reduction</span></span>
+          <span class="result-pill"><span class="lang-pt">MVP entregue com redução de custos e aumento de capacidade</span><span class="lang-en">MVP delivered with cost reduction and increased capacity</span></span>
         </div>
       </article>
 
@@ -965,6 +1021,10 @@
           <span class="exp-period">09/2021 — 02/2022</span>
         </div>
         <p class="exp-company">SiMCo <span class="sector">· HealthTech · B2C</span></p>
+        <p style="font-size:13px;color:var(--gray-700);line-height:1.5;margin-bottom:12px">
+          <span class="lang-pt">Rede de clínicas médicas com foco em democratização do acesso à saúde e serviços de saúde digital.</span>
+          <span class="lang-en">Network of medical clinics focused on democratizing access to healthcare and digital health services.</span>
+        </p>
         <ul class="exp-bullets">
           <li><span class="lang-pt">Atuei em duas squads: novos produtos de saúde digital (app mobile) e sistema de call center com módulo de agendamentos</span><span class="lang-en">Worked in two squads: new digital health products (mobile app) and call center system with scheduling module</span></li>
           <li><span class="lang-pt">Conduzi Discovery, entrevistas com stakeholders e design em Adobe XD</span><span class="lang-en">Conducted Discovery, stakeholder interviews and design in Adobe XD</span></li>
@@ -989,6 +1049,10 @@
           <span class="exp-period">03/2021 — 08/2021</span>
         </div>
         <p class="exp-company">SiMCo <span class="sector">· HealthTech</span></p>
+        <p style="font-size:13px;color:var(--gray-700);line-height:1.5;margin-bottom:12px">
+          <span class="lang-pt">Rede de clínicas médicas com foco em democratização do acesso à saúde.</span>
+          <span class="lang-en">Network of medical clinics focused on democratizing access to healthcare.</span>
+        </p>
         <ul class="exp-bullets">
           <li><span class="lang-pt">Campanhas de marketing online e offline com produção de conteúdo visual</span><span class="lang-en">Online and offline marketing campaigns with visual content production</span></li>
           <li><span class="lang-pt">Monitoramento de usabilidade com Hotjar e Google Analytics</span><span class="lang-en">Usability monitoring with Hotjar and Google Analytics</span></li>
@@ -1005,27 +1069,6 @@
       </div>
 
       <div class="edu-item">
-        <span class="edu-year">2014–2019</span>
-        <div>
-          <p class="edu-title"><span class="lang-pt">Bacharelado em Design</span><span class="lang-en">Bachelor's in Design</span></p>
-          <p class="edu-inst"><span class="lang-pt">Universidade Federal do Ceará</span><span class="lang-en">Federal University of Ceará</span></p>
-        </div>
-      </div>
-      <div class="edu-item">
-        <span class="edu-year">2023</span>
-        <div>
-          <p class="edu-title">Google UX Design Professional Certificate</p>
-          <p class="edu-inst">Google / Coursera</p>
-        </div>
-      </div>
-      <div class="edu-item">
-        <span class="edu-year">2021–2022</span>
-        <div>
-          <p class="edu-title"><span class="lang-pt">Certificado em UX — Formação em UX, UI e Product Design (120h)</span><span class="lang-en">UX Certificate — UX, UI and Product Design (120h)</span></p>
-          <p class="edu-inst">Udemy</p>
-        </div>
-      </div>
-      <div class="edu-item">
         <span class="edu-year">2020–2021</span>
         <div>
           <p class="edu-title"><span class="lang-pt">UX/UI: Fundamentos para o Design de Interface</span><span class="lang-en">UX/UI: Fundamentals for Interface Design</span></p>
@@ -1039,6 +1082,13 @@
           <p class="edu-inst">Origamid</p>
         </div>
       </div>
+      <div class="edu-item">
+        <span class="edu-year">2014–2019</span>
+        <div>
+          <p class="edu-title"><span class="lang-pt">Bacharelado em Design</span><span class="lang-en">Bachelor's in Design</span></p>
+          <p class="edu-inst"><span class="lang-pt">Universidade Federal do Ceará</span><span class="lang-en">Federal University of Ceará</span></p>
+        </div>
+      </div>
     </section>
 
     <!-- CERTIFICAÇÕES -->
@@ -1049,6 +1099,14 @@
       </div>
       <div class="cert-grid">
         <div class="cert-item">
+          <p class="cert-name">Google UX Design Professional Certificate</p>
+          <p class="cert-org">Google / Coursera</p>
+        </div>
+        <div class="cert-item">
+          <p class="cert-name"><span class="lang-pt">Certificado em UX — Formação em UX, UI e Product Design (120h)</span><span class="lang-en">UX Certificate — UX, UI and Product Design (120h)</span></p>
+          <p class="cert-org">Udemy</p>
+        </div>
+        <div class="cert-item">
           <p class="cert-name"><span class="lang-pt">Figma: Construindo um Design System</span><span class="lang-en">Figma: Building a Design System</span></p>
           <p class="cert-org">Coursera</p>
         </div>
@@ -1056,14 +1114,7 @@
           <p class="cert-name"><span class="lang-pt">Métricas de Negócios Digitais</span><span class="lang-en">Digital Business Metrics</span></p>
           <p class="cert-org">Coursera</p>
         </div>
-        <div class="cert-item">
-          <p class="cert-name">AI-Driven UX Research</p>
-          <p class="cert-org"><span class="lang-pt">Certificação profissional</span><span class="lang-en">Professional certification</span></p>
-        </div>
-        <div class="cert-item">
-          <p class="cert-name"><span class="lang-pt">Desenvolvimento de SaaS</span><span class="lang-en">SaaS Development</span></p>
-          <p class="cert-org"><span class="lang-pt">Certificação profissional</span><span class="lang-en">Professional certification</span></p>
-        </div>
+
       </div>
     </section>
 
@@ -1088,8 +1139,10 @@
 
 <!-- FOOTER -->
 <footer>
-  <span>© 2026 Silas Vasques · Fortaleza, CE</span>
-  <span><span class="lang-pt">Construído em HTML + CSS</span><span class="lang-en">Built in HTML + CSS</span></span>
+  <div class="container">
+    <span>© 2026 Silas Vasques · Fortaleza, CE</span>
+    <span><span class="lang-pt">Construído em HTML + CSS</span><span class="lang-en">Built in HTML + CSS</span></span>
+  </div>
 </footer>
 
 <!-- TOAST -->
@@ -1108,10 +1161,15 @@
       sidebar.setAttribute('aria-label', lang === 'pt' ? sidebar.dataset.ariaPt : sidebar.dataset.ariaEn);
     }
     localStorage.setItem('cv-lang', lang);
+    const base = window.location.pathname.replace(/\/en(\/|$)/, '/');
+    const newPath = lang === 'en' ? base.replace(/\/$/, '') + '/en' : base;
+    history.replaceState(null, '', newPath);
   }
 
+  const pathLang = window.location.pathname.match(/\/en(\/|$)/) ? 'en' : '';
   const savedLang = localStorage.getItem('cv-lang');
-  if (savedLang && savedLang !== 'pt') setLang(savedLang);
+  const initLang = pathLang || savedLang || 'pt';
+  if (initLang !== 'pt') setLang(initLang);
 
   function showToast(msg) {
     const t = document.getElementById('toast');
