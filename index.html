@@ -26,7 +26,7 @@
       --accent-light: #EBF1FE;
       --mono: 'JetBrains Mono', monospace;
       --sans: 'Inter', sans-serif;
-      --sidebar-w: 280px;
+      --sidebar-w: 320px;
     }
 
     html { scroll-behavior: smooth; }
@@ -40,6 +40,11 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    .container {
+      max-width: 1024px;
+      margin: 0 auto;
+    }
+
     /* ── ACTIONS BAR ── */
     .actions-bar {
       position: fixed;
@@ -47,12 +52,18 @@
       z-index: 100;
       display: flex;
       align-items: center;
-      justify-content: flex-end;
       gap: 8px;
       padding: 12px 32px;
       background: rgba(248, 247, 244, 0.85);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--gray-100);
+    }
+
+    .actions-bar .container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
     }
 
     .actions-bar .site-label {
@@ -61,6 +72,47 @@
       font-size: 11px;
       color: var(--gray-500);
       letter-spacing: 0.05em;
+    }
+
+    /* ── LANG TOGGLE ── */
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      background: var(--gray-100);
+      border-radius: 5px;
+      padding: 2px;
+      font-family: var(--mono);
+      font-size: 10px;
+      border: 1px solid var(--gray-300);
+    }
+
+    .lang-toggle button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 3px 7px;
+      border-radius: 4px;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--gray-500);
+      transition: all 0.15s;
+    }
+
+    .lang-toggle button.active {
+      background: var(--white);
+      color: var(--black);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    }
+
+    .lang-toggle button:not(.active):hover {
+      color: var(--gray-700);
+    }
+
+    .lang-toggle .sep {
+      color: var(--gray-300);
+      font-size: 10px;
+      padding: 0 1px;
     }
 
     .btn {
@@ -259,10 +311,15 @@
       color: var(--gray-500);
     }
 
+    /* ── LANG HIDE/SHOW ── */
+    .lang-en { display: none; }
+    html[lang="en"] .lang-pt { display: none; }
+    html[lang="en"] .lang-en { display: inline; }
+    html[lang="en"] .lang-en-block { display: block; }
+
     /* ── MAIN CONTENT ── */
     .main {
       padding: 48px 56px;
-      max-width: 760px;
     }
 
     /* ── HERO ── */
@@ -604,7 +661,7 @@
       }
       .avatar, .avail-badge { display: none; }
       .sidebar-name { font-size: 20px; }
-      .main { padding: 28px 32px; max-width: 100%; }
+      .main { padding: 28px 32px; }
       .hero-headline { font-size: 26px; }
       .metrics { break-inside: avoid; }
       .exp-card { break-inside: avoid; }
@@ -639,17 +696,25 @@
 
 <!-- ACTIONS BAR -->
 <header class="actions-bar" role="banner">
-  <span class="site-label">silas.vasques/cv</span>
-  <button class="btn btn-ghost" onclick="shareCV()" aria-label="Compartilhar currículo">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-    Compartilhar
-  </button>
-  <button class="btn btn-primary" onclick="downloadPDF()" aria-label="Baixar currículo em PDF">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-    Baixar PDF
-  </button>
+  <div class="container">
+    <span class="site-label">silas.vasques/cv</span>
+    <div class="lang-toggle" role="group" aria-label="Selecionar idioma">
+      <button class="active" onclick="setLang('pt')" aria-pressed="true">PT</button>
+      <span class="sep">|</span>
+      <button onclick="setLang('en')" aria-pressed="false">EN</button>
+    </div>
+    <button class="btn btn-ghost" onclick="shareCV()" aria-label="Compartilhar currículo">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      <span class="lang-pt">Compartilhar</span><span class="lang-en">Share</span>
+    </button>
+    <button class="btn btn-primary" onclick="downloadPDF()" aria-label="Baixar currículo em PDF">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <span class="lang-pt">Baixar PDF</span><span class="lang-en">Download PDF</span>
+    </button>
+  </div>
 </header>
 
+<div class="container">
 <!-- LAYOUT -->
 <div class="layout">
 
@@ -667,11 +732,11 @@
 
     <div class="avail-badge">
       <span class="avail-dot" aria-hidden="true"></span>
-      Disponível para projetos
+      <span class="lang-pt">Disponível para projetos</span><span class="lang-en">Available for projects</span>
     </div>
 
     <div class="sidebar-section">
-      <p class="sidebar-section-label">Contato</p>
+      <p class="sidebar-section-label"><span class="lang-pt">Contato</span><span class="lang-en">Contact</span></p>
       <ul class="contact-list">
         <li>
           <a href="mailto:silasvj@gmail.com">
@@ -688,13 +753,13 @@
         <li>
           <a href="https://silasvj.github.io/portfolio" target="_blank" rel="noopener">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-            silasvj.github.io/portfolio
+            <span class="lang-pt">Portfólio</span><span class="lang-en">Portfolio</span>
           </a>
         </li>
         <li>
           <a href="https://www.notion.so/silasvj/Silas-Vasques-Meu-Portf-lio-como-Designer-e3513e4b53964d17a461813f30896c5a" target="_blank" rel="noopener">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            Portfólio Notion
+            <span class="lang-pt">Portfólio Notion</span><span class="lang-en">Notion Portfolio</span>
           </a>
         </li>
       </ul>
@@ -707,7 +772,7 @@
         <div class="skill-tags">
           <span class="tag tag-accent">Figma</span>
           <span class="tag">Design Systems</span>
-          <span class="tag">Prototipação</span>
+          <span class="tag"><span class="lang-pt">Prototipação</span><span class="lang-en">Prototyping</span></span>
           <span class="tag">Figma Make</span>
           <span class="tag">Adobe XD</span>
         </div>
@@ -721,7 +786,7 @@
         </div>
       </div>
       <div class="skill-group">
-        <p class="skill-group-name">IA &amp; Analytics</p>
+        <p class="skill-group-name"><span class="lang-pt">IA &amp; Analytics</span><span class="lang-en">AI &amp; Analytics</span></p>
         <div class="skill-tags">
           <span class="tag tag-accent">Claude Code</span>
           <span class="tag">Lovable</span>
@@ -733,27 +798,27 @@
         <p class="skill-group-name">Research</p>
         <div class="skill-tags">
           <span class="tag">JTBD</span>
-          <span class="tag">Entrevistas</span>
-          <span class="tag">Testes de usabilidade</span>
+          <span class="tag"><span class="lang-pt">Entrevistas</span><span class="lang-en">Interviews</span></span>
+          <span class="tag"><span class="lang-pt">Testes de usabilidade</span><span class="lang-en">Usability testing</span></span>
           <span class="tag">UX Writing</span>
         </div>
       </div>
     </div>
 
     <div class="sidebar-section">
-      <p class="sidebar-section-label">Idiomas</p>
+      <p class="sidebar-section-label"><span class="lang-pt">Idiomas</span><span class="lang-en">Languages</span></p>
       <div class="lang-item">
         <span>Português</span>
-        <span class="lang-level">nativo</span>
+        <span class="lang-level"><span class="lang-pt">nativo</span><span class="lang-en">native</span></span>
       </div>
       <div class="lang-item">
-        <span>Inglês</span>
-        <span class="lang-level">B2+</span>
+        <span>English</span>
+        <span class="lang-level">Professional Working</span>
       </div>
     </div>
 
     <div class="sidebar-section">
-      <p class="sidebar-section-label">Setores</p>
+      <p class="sidebar-section-label"><span class="lang-pt">Setores</span><span class="lang-en">Sectors</span></p>
       <div class="skill-tags">
         <span class="tag">Fintech</span>
         <span class="tag">HealthTech</span>
@@ -771,14 +836,12 @@
     <section class="hero" aria-label="Apresentação">
       <p class="hero-eyebrow">AI Design Engineer &amp; Product Designer</p>
       <h1 class="hero-headline">
-        Projeto experiências,<br>
-        valido com usuários<br>
-        <em>e entrego no código.</em>
+        <span class="lang-pt">Projeto experiências,<br>valido com usuários<br><em>e entrego no código.</em></span>
+        <span class="lang-en">I design experiences,<br>validate with users,<br><em>and deliver in code.</em></span>
       </h1>
       <p class="hero-bio">
-        8+ anos em design de produto digital, sendo 5 deles em Fintech e HealthTech complexos.
-        Atuo na interseção entre design e engenharia: elimino gargalos de handoff, orquestro agentes de IA
-        e uso product analytics para tomar decisões orientadas por dados.
+        <span class="lang-pt">8+ anos em design de produto digital, sendo 5 deles em Fintech e HealthTech complexos. Atuo na interseção entre design e engenharia: elimino gargalos de handoff, orquestro agentes de IA e uso product analytics para tomar decisões orientadas por dados.</span>
+        <span class="lang-en">8+ years in digital product design, 5 of them in complex Fintech and HealthTech. I work at the intersection of design and engineering: eliminating handoff bottlenecks, orchestrating AI agents, and using product analytics for data-driven decisions.</span>
       </p>
     </section>
 
@@ -786,22 +849,22 @@
     <div class="metrics" role="list" aria-label="Principais métricas">
       <div class="metric-item" role="listitem">
         <div class="metric-value">8<span class="accent">+</span></div>
-        <div class="metric-label">anos de experiência em design</div>
+        <div class="metric-label"><span class="lang-pt">anos de experiência em design</span><span class="lang-en">years of design experience</span></div>
       </div>
       <div class="metric-item" role="listitem">
         <div class="metric-value">75<span class="accent">%</span></div>
-        <div class="metric-label">redução no tempo de entrega de front-end</div>
+        <div class="metric-label"><span class="lang-pt">redução no tempo de entrega de front-end</span><span class="lang-en">front-end delivery time reduction</span></div>
       </div>
       <div class="metric-item" role="listitem">
         <div class="metric-value">28<span class="accent">k+</span></div>
-        <div class="metric-label">empresários impactados</div>
+        <div class="metric-label"><span class="lang-pt">empresários impactados</span><span class="lang-en">entrepreneurs impacted</span></div>
       </div>
     </div>
 
     <!-- EXPERIÊNCIA -->
     <section class="section" aria-labelledby="exp-title">
       <div class="section-header">
-        <h2 class="section-title" id="exp-title">Experiência</h2>
+        <h2 class="section-title" id="exp-title"><span class="lang-pt">Experiência</span><span class="lang-en">Experience</span></h2>
         <div class="section-line" aria-hidden="true"></div>
       </div>
 
@@ -813,12 +876,15 @@
         </div>
         <p class="exp-company">YampaFin <span class="sector">· Fintech · SaaS</span></p>
         <ul class="exp-bullets">
-          <li>Implementei interfaces diretamente em TypeScript, React e Tailwind, eliminando etapas de revisão visual e reduzindo o atrito no handoff</li>
-          <li>Orquestrei agentes de IA (Claude Code, Lovable) para entrega de código pronto para produção</li>
-          <li>Automatizei o processo de Discovery com clusterização e análise de sentimentos em entrevistas</li>
+          <li class="lang-pt">Implementei interfaces diretamente em TypeScript, React e Tailwind, eliminando etapas de revisão visual e reduzindo o atrito no handoff</li>
+          <li class="lang-en">Implemented interfaces directly in TypeScript, React and Tailwind, eliminating visual review stages and reducing handoff friction</li>
+          <li class="lang-pt">Orquestrei agentes de IA (Claude Code, Lovable) para entrega de código pronto para produção</li>
+          <li class="lang-en">Orchestrated AI agents (Claude Code, Lovable) for production-ready code delivery</li>
+          <li class="lang-pt">Automatizei o processo de Discovery com clusterização e análise de sentimentos em entrevistas</li>
+          <li class="lang-en">Automated the Discovery process with clustering and sentiment analysis in interviews</li>
         </ul>
         <div class="exp-results">
-          <span class="result-pill">↓75% tempo de entrega</span>
+          <span class="result-pill"><span class="lang-pt">↓75% tempo de entrega</span><span class="lang-en">↓75% delivery time</span></span>
           <span class="result-pill">5 dias → 1-2 dias/feature</span>
         </div>
       </article>
@@ -831,17 +897,21 @@
         </div>
         <p class="exp-company">Yampa <span class="sector">· Fintech · SaaS</span></p>
         <ul class="exp-bullets">
-          <li>Concebi e projetei Agentes de IA integrados à plataforma: assistente operacional e consultor financeiro analítico</li>
-          <li>Liderei a migração completa do sistema legado para arquitetura Mobile First com acessibilidade WCAG</li>
-          <li>Geri e evoluí o Design System no Figma com conformidade Tailwind</li>
+          <li class="lang-pt">Concebi e projetei Agentes de IA integrados à plataforma: assistente operacional e consultor financeiro analítico</li>
+          <li class="lang-en">Designed and built AI Agents integrated into the platform: operational assistant and analytical financial consultant</li>
+          <li class="lang-pt">Liderei a migração completa do sistema legado para arquitetura Mobile First com acessibilidade WCAG</li>
+          <li class="lang-en">Led the complete legacy system migration to Mobile First architecture with WCAG accessibility</li>
+          <li class="lang-pt">Geri e evoluí o Design System no Figma com conformidade Tailwind</li>
+          <li class="lang-en">Managed and evolved the Design System in Figma with Tailwind compliance</li>
         </ul>
         <div class="exp-highlight">
           <p class="exp-highlight-label">Product Analytics — Mixpanel</p>
-          <p>Instrumentalizei tracking events em fluxos críticos (onboarding, integração bancária). Construí funis de conversão para identificar drop-off points, extraí métricas de Activation e Retention (DAU/WAU/MAU) e cruzei dados comportamentais com perfil empresarial (setor, tamanho) para informar o roadmap.</p>
+          <p class="lang-pt">Instrumentalizei tracking events em fluxos críticos (onboarding, integração bancária). Construí funis de conversão para identificar drop-off points, extraí métricas de Activation e Retention (DAU/WAU/MAU) e cruzei dados comportamentais com perfil empresarial (setor, tamanho) para informar o roadmap.</p>
+          <p class="lang-en">Instrumented tracking events across critical flows (onboarding, bank integration). Built conversion funnels to identify drop-off points, extracted Activation and Retention metrics (DAU/WAU/MAU), and crossed behavioral data with business profiles (sector, size) to inform the roadmap.</p>
         </div>
         <div class="exp-results">
-          <span class="result-pill">3k+ empresas clientes</span>
-          <span class="result-pill">28k+ usuários impactados</span>
+          <span class="result-pill"><span class="lang-pt">3k+ empresas clientes</span><span class="lang-en">3k+ client companies</span></span>
+          <span class="result-pill"><span class="lang-pt">28k+ usuários impactados</span><span class="lang-en">28k+ impacted users</span></span>
         </div>
       </article>
 
@@ -853,13 +923,16 @@
         </div>
         <p class="exp-company">Meetz <span class="sector">· MarTech · SaaS</span></p>
         <ul class="exp-bullets">
-          <li>Conduzi Continuous Discovery e entrevistas qualitativas com usuários B2B</li>
-          <li>Defini MVP, mapeei User Flows e estruturei Arquitetura de Informação</li>
-          <li>Prototipação em Figma e moderação de testes de usabilidade</li>
+          <li class="lang-pt">Conduzi Continuous Discovery e entrevistas qualitativas com usuários B2B</li>
+          <li class="lang-en">Conducted Continuous Discovery and qualitative interviews with B2B users</li>
+          <li class="lang-pt">Defini MVP, mapeei User Flows e estruturei Arquitetura de Informação</li>
+          <li class="lang-en">Defined MVP, mapped User Flows and structured Information Architecture</li>
+          <li class="lang-pt">Prototipação em Figma e moderação de testes de usabilidade</li>
+          <li class="lang-en">Prototyping in Figma and moderated usability testing</li>
         </ul>
         <div class="exp-results">
-          <span class="result-pill">MVP entregue</span>
-          <span class="result-pill">Redução de custos operacionais</span>
+          <span class="result-pill"><span class="lang-pt">MVP entregue</span><span class="lang-en">MVP delivered</span></span>
+          <span class="result-pill"><span class="lang-pt">Redução de custos operacionais</span><span class="lang-en">Operational cost reduction</span></span>
         </div>
       </article>
 
@@ -871,32 +944,38 @@
         </div>
         <p class="exp-company">SiMCo <span class="sector">· HealthTech · B2C</span></p>
         <ul class="exp-bullets">
-          <li>Atuei em duas squads: novos produtos de saúde digital (app mobile) e sistema de call center com módulo de agendamentos</li>
-          <li>Conduzi Discovery, entrevistas com stakeholders e design em Adobe XD</li>
+          <li class="lang-pt">Atuei em duas squads: novos produtos de saúde digital (app mobile) e sistema de call center com módulo de agendamentos</li>
+          <li class="lang-en">Worked in two squads: new digital health products (mobile app) and call center system with scheduling module</li>
+          <li class="lang-pt">Conduzi Discovery, entrevistas com stakeholders e design em Adobe XD</li>
+          <li class="lang-en">Conducted Discovery, stakeholder interviews and design in Adobe XD</li>
         </ul>
         <div class="exp-highlight">
-          <p class="exp-highlight-label">Otimização de conversão — Orçamentos &amp; Cartão de Benefícios</p>
-          <p>Redesenhei o fluxo de orçamento com catálogo simplificado e "Orçamento Consolidado" — visualização lado-a-lado de preço comum vs. preço com cartão. Implementei argumento de venda chave: <em>"O desconto equivale a X meses de mensalidade já pagos"</em> — transformando custo em valor percebido. PDF enviado por email e WhatsApp com comparação integrada.</p>
+          <p class="exp-highlight-label"><span class="lang-pt">Otimização de conversão — Orçamentos &amp; Cartão de Benefícios</span><span class="lang-en">Conversion optimization — Quotes &amp; Benefits Card</span></p>
+          <p class="lang-pt">Redesenhei o fluxo de orçamento com catálogo simplificado e &ldquo;Orçamento Consolidado&rdquo; — visualização lado-a-lado de preço comum vs. preço com cartão. Implementei argumento de venda chave: <em>&ldquo;O desconto equivale a X meses de mensalidade já pagos&rdquo;</em> — transformando custo em valor percebido. PDF enviado por email e WhatsApp com comparação integrada.</p>
+          <p class="lang-en">Redesigned the quote flow with simplified catalog and &ldquo;Consolidated Quote&rdquo; — side-by-side view of standard vs. card pricing. Implemented key sales argument: <em>&ldquo;The discount equals X months of membership already paid&rdquo;</em> — turning cost into perceived value. PDF sent via email and WhatsApp with integrated comparison.</p>
         </div>
         <div class="exp-results">
-          <span class="result-pill">+22% atendimentos</span>
-          <span class="result-pill">15k agendamentos/mês</span>
-          <span class="result-pill">↑ assinaturas cartão</span>
-          <span class="result-pill">Produto saúde mental lançado</span>
+          <span class="result-pill">+22% <span class="lang-pt">atendimentos</span><span class="lang-en">quotes</span></span>
+          <span class="result-pill">15k <span class="lang-pt">agendamentos/mês</span><span class="lang-en">appointments/month</span></span>
+          <span class="result-pill"><span class="lang-pt">↑ assinaturas cartão</span><span class="lang-en">↑ card subscriptions</span></span>
+          <span class="result-pill"><span class="lang-pt">Produto saúde mental lançado</span><span class="lang-en">Mental health product launched</span></span>
         </div>
       </article>
 
       <!-- SiMCo Assistente -->
       <article class="exp-card">
         <div class="exp-header">
-          <h3 class="exp-role">Assistente de Design e UX</h3>
+          <h3 class="exp-role"><span class="lang-pt">Assistente de Design e UX</span><span class="lang-en">Design and UX Assistant</span></h3>
           <span class="exp-period">03/2021 — 08/2021</span>
         </div>
         <p class="exp-company">SiMCo <span class="sector">· HealthTech</span></p>
         <ul class="exp-bullets">
-          <li>Campanhas de marketing online e offline com produção de conteúdo visual</li>
-          <li>Monitoramento de usabilidade com Hotjar e Google Analytics</li>
-          <li>Análise heurística para otimização de interfaces e checkout</li>
+          <li class="lang-pt">Campanhas de marketing online e offline com produção de conteúdo visual</li>
+          <li class="lang-en">Online and offline marketing campaigns with visual content production</li>
+          <li class="lang-pt">Monitoramento de usabilidade com Hotjar e Google Analytics</li>
+          <li class="lang-en">Usability monitoring with Hotjar and Google Analytics</li>
+          <li class="lang-pt">Análise heurística para otimização de interfaces e checkout</li>
+          <li class="lang-en">Heuristic analysis for interface and checkout optimization</li>
         </ul>
       </article>
     </section>
@@ -904,15 +983,15 @@
     <!-- FORMAÇÃO -->
     <section class="section" aria-labelledby="edu-title">
       <div class="section-header">
-        <h2 class="section-title" id="edu-title">Formação</h2>
+        <h2 class="section-title" id="edu-title"><span class="lang-pt">Formação</span><span class="lang-en">Education</span></h2>
         <div class="section-line" aria-hidden="true"></div>
       </div>
 
       <div class="edu-item">
         <span class="edu-year">2014–2019</span>
         <div>
-          <p class="edu-title">Bacharelado em Design</p>
-          <p class="edu-inst">Universidade Federal do Ceará</p>
+          <p class="edu-title"><span class="lang-pt">Bacharelado em Design</span><span class="lang-en">Bachelor's in Design</span></p>
+          <p class="edu-inst"><span class="lang-pt">Universidade Federal do Ceará</span><span class="lang-en">Federal University of Ceará</span></p>
         </div>
       </div>
       <div class="edu-item">
@@ -925,15 +1004,15 @@
       <div class="edu-item">
         <span class="edu-year">2021–2022</span>
         <div>
-          <p class="edu-title">Certificado em UX — Formação em UX, UI e Product Design (120h)</p>
+          <p class="edu-title"><span class="lang-pt">Certificado em UX — Formação em UX, UI e Product Design (120h)</span><span class="lang-en">UX Certificate — UX, UI and Product Design (120h)</span></p>
           <p class="edu-inst">Udemy</p>
         </div>
       </div>
       <div class="edu-item">
         <span class="edu-year">2020–2021</span>
         <div>
-          <p class="edu-title">UX/UI: Fundamentos para o Design de Interface</p>
-          <p class="edu-inst">Universidade de São Paulo</p>
+          <p class="edu-title"><span class="lang-pt">UX/UI: Fundamentos para o Design de Interface</span><span class="lang-en">UX/UI: Fundamentals for Interface Design</span></p>
+          <p class="edu-inst"><span class="lang-pt">Universidade de São Paulo</span><span class="lang-en">University of São Paulo</span></p>
         </div>
       </div>
       <div class="edu-item">
@@ -948,25 +1027,25 @@
     <!-- CERTIFICAÇÕES -->
     <section class="section" aria-labelledby="cert-title">
       <div class="section-header">
-        <h2 class="section-title" id="cert-title">Certificações</h2>
+        <h2 class="section-title" id="cert-title"><span class="lang-pt">Certificações</span><span class="lang-en">Certifications</span></h2>
         <div class="section-line" aria-hidden="true"></div>
       </div>
       <div class="cert-grid">
         <div class="cert-item">
-          <p class="cert-name">Figma: Construindo um Design System</p>
+          <p class="cert-name"><span class="lang-pt">Figma: Construindo um Design System</span><span class="lang-en">Figma: Building a Design System</span></p>
           <p class="cert-org">Coursera</p>
         </div>
         <div class="cert-item">
-          <p class="cert-name">Métricas de Negócios Digitais</p>
+          <p class="cert-name"><span class="lang-pt">Métricas de Negócios Digitais</span><span class="lang-en">Digital Business Metrics</span></p>
           <p class="cert-org">Coursera</p>
         </div>
         <div class="cert-item">
           <p class="cert-name">AI-Driven UX Research</p>
-          <p class="cert-org">Certificação profissional</p>
+          <p class="cert-org"><span class="lang-pt">Certificação profissional</span><span class="lang-en">Professional certification</span></p>
         </div>
         <div class="cert-item">
-          <p class="cert-name">Desenvolvimento de SaaS</p>
-          <p class="cert-org">Certificação profissional</p>
+          <p class="cert-name"><span class="lang-pt">Desenvolvimento de SaaS</span><span class="lang-en">SaaS Development</span></p>
+          <p class="cert-org"><span class="lang-pt">Certificação profissional</span><span class="lang-en">Professional certification</span></p>
         </div>
       </div>
     </section>
@@ -974,31 +1053,45 @@
     <!-- PALESTRA -->
     <section class="section" aria-labelledby="talk-title">
       <div class="section-header">
-        <h2 class="section-title" id="talk-title">Palestras &amp; Eventos</h2>
+        <h2 class="section-title" id="talk-title"><span class="lang-pt">Palestras &amp; Eventos</span><span class="lang-en">Talks &amp; Events</span></h2>
         <div class="section-line" aria-hidden="true"></div>
       </div>
       <div class="talk-item">
         <span class="talk-event">TDC Recife 2023</span>
         <div>
-          <p class="talk-title">Acessibilidade, UX e Ética em Produtos Digitais</p>
-          <p class="talk-sub">Trilha Gestão de Produtos</p>
+          <p class="talk-title"><span class="lang-pt">Acessibilidade, UX e Ética em Produtos Digitais</span><span class="lang-en">Accessibility, UX and Ethics in Digital Products</span></p>
+          <p class="talk-sub"><span class="lang-pt">Trilha Gestão de Produtos</span><span class="lang-en">Product Management Track</span></p>
         </div>
       </div>
     </section>
 
   </main>
 </div>
+</div>
 
 <!-- FOOTER -->
 <footer>
   <span>© 2026 Silas Vasques · Fortaleza, CE</span>
-  <span>Construído em HTML + CSS</span>
+  <span><span class="lang-pt">Construído em HTML + CSS</span><span class="lang-en">Built in HTML + CSS</span></span>
 </footer>
 
 <!-- TOAST -->
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
+  function setLang(lang) {
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+    document.querySelectorAll('.lang-toggle button').forEach(b => {
+      const isActive = b.textContent.trim().toLowerCase() === lang;
+      b.classList.toggle('active', isActive);
+      b.setAttribute('aria-pressed', isActive);
+    });
+    localStorage.setItem('cv-lang', lang);
+  }
+
+  const savedLang = localStorage.getItem('cv-lang');
+  if (savedLang && savedLang !== 'pt') setLang(savedLang);
+
   function showToast(msg) {
     const t = document.getElementById('toast');
     t.textContent = msg;
@@ -1011,32 +1104,34 @@
   }
 
   async function shareCV() {
+    const isEn = document.documentElement.lang === 'en';
     const data = {
       title: 'Silas Vasques — AI Design Engineer & Product Designer',
-      text: '8+ anos em Fintech, HealthTech e SaaS. Projeto experiências, valido com usuários e entrego no código.',
+      text: isEn
+        ? '8+ years in Fintech, HealthTech and SaaS. I design experiences, validate with users, and deliver in code.'
+        : '8+ anos em Fintech, HealthTech e SaaS. Projeto experiências, valido com usuários e entrego no código.',
       url: window.location.href
     };
     if (navigator.share) {
       try {
         await navigator.share(data);
       } catch (e) {
-        if (e.name !== 'AbortError') copyFallback();
+        if (e.name !== 'AbortError') copyFallback(isEn);
       }
     } else {
-      copyFallback();
+      copyFallback(isEn);
     }
   }
 
-  function copyFallback() {
+  function copyFallback(isEn) {
     navigator.clipboard.writeText(window.location.href)
-      .then(() => showToast('✓ Link copiado para o clipboard!'))
+      .then(() => showToast(isEn ? '✓ Link copied to clipboard!' : '✓ Link copiado para o clipboard!'))
       .catch(() => showToast('URL: ' + window.location.href));
   }
 
   // Count-up animation for metrics
   function countUp(el, target, suffix, duration = 1200) {
     const start = performance.now();
-    const isFloat = target % 1 !== 0;
     const update = (now) => {
       const progress = Math.min((now - start) / duration, 1);
       const ease = 1 - Math.pow(1 - progress, 3);
@@ -1048,7 +1143,6 @@
     requestAnimationFrame(update);
   }
 
-  // Trigger count-up when metrics enter viewport
   const metricValues = document.querySelectorAll('.metric-value');
   const metricsData = [
     { target: 8, suffix: '+' },
