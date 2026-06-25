@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting...</title>
+  <script>
+    // Redirect to index.html preserving the path so JS can detect /en
+    var repo = '/resume';
+    var path = window.location.pathname;
+    // If path starts with /resume/en, redirect to /resume/index.html?lang=en
+    // Otherwise just go to /resume/index.html
+    var target = repo + '/index.html';
+    if (path.indexOf(repo + '/en') === 0) {
+      target = repo + '/index.html?lang=en';
+    }
+    window.location.replace(target);
+  </script>
+</head>
+<body>
+  <p>Redirecting...</p>
+</body>
+</html>

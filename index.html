@@ -1336,14 +1336,15 @@ Palestras:
       sidebar.setAttribute('aria-label', lang === 'pt' ? sidebar.dataset.ariaPt : sidebar.dataset.ariaEn);
     }
     localStorage.setItem('cv-lang', lang);
-    const base = window.location.pathname.replace(/\/en(\/|$)/, '/');
+    let base = window.location.pathname.replace(/\/en(\/|$)/, '/').replace(/index\.html$/, '');
     const newPath = lang === 'en' ? base.replace(/\/$/, '') + '/en' : base;
     history.replaceState(null, '', newPath);
   }
 
   const pathLang = window.location.pathname.match(/\/en(\/|$)/) ? 'en' : '';
+  const queryLang = new URLSearchParams(window.location.search).get('lang');
   const savedLang = localStorage.getItem('cv-lang');
-  const initLang = pathLang || savedLang || 'pt';
+  const initLang = pathLang || queryLang || savedLang || 'pt';
   if (initLang !== 'pt') setLang(initLang);
 
   function showToast(msg) {
